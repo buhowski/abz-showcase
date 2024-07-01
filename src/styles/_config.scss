@@ -1,0 +1,48 @@
+// Color Variables
+$black: #000000;
+$white: #ffffff;
+$text-color: rgba(#000000, 0.87);
+$bg-color: #f8f8f8;
+$form-bg-color: #303a53;
+$highlight-color: #ff3459;
+$input-color: #d7d7d7;
+
+// Typography Variables
+$font-family: 'Gilroy', sans-serif;
+$base-font-size: 1rem;
+$base-line-height: 1.2;
+$medium: 500;
+$semibold: 600;
+
+// Border Variables
+$border-radius: 16px;
+$border: 1px solid rgba($black, 0.3);
+
+// Z-index
+$zIndex-modal: 1050;
+
+// Breakpoints
+$breakpoint-small: 360px;
+$breakpoint-medium: 620px;
+
+// Transition timing
+$transition-time: 0.3s;
+
+// Mixins for media queries
+@mixin respond-to($breakpoint) {
+	@if $breakpoint == small {
+		@media (max-width: $breakpoint-small) {
+			@content;
+		}
+	} @else if $breakpoint == medium {
+		@media (max-width: $breakpoint-medium) {
+			@content;
+		}
+	}
+}
+
+@mixin tablet {
+	@media screen and (max-width: 850px) {
+		@content;
+	}
+}
