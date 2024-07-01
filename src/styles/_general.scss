@@ -3,3 +3,55 @@ body {
 	background-color: $bg-color;
 	color: $text-color;
 }
+
+.container {
+	width: min(1170px, 100%);
+	margin-inline: auto;
+}
+
+.wrapper {
+	@include tablet {
+		padding: 0 60px;
+	}
+
+	@include tabletSmall {
+		padding: 0 32px;
+	}
+
+	@include mobile {
+		padding: 0 16px;
+	}
+}
+
+.main-btn {
+	border-radius: 80px;
+	background-color: $primary-color;
+	padding: 6px 19px;
+	text-align: center;
+	min-width: 100px;
+	color: $text-color;
+
+	&:hover {
+		background-color: $primary-hover;
+	}
+
+	&.disabled {
+		background-color: $disabled-color;
+		color: rgba($white, 0.87);
+		pointer-events: none;
+	}
+}
+
+.base-title {
+	font-size: 40px;
+	line-height: 40px;
+	text-align: center;
+
+	&:not(.hero .base-title) {
+		margin-bottom: 50px;
+	}
+}
+
+p {
+	line-height: 26px;
+}

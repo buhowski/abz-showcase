@@ -1,6 +1,11 @@
+// Fonts
+@import './assets/fonts/fonts.scss';
+
 // Reset styles
 @import './styles/reset';
 
 // SCSS Variables / default styles / mixins
 @import './styles/config';
+
+// Main defaults / custom styles
 @import './styles/general';

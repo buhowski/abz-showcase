@@ -1,0 +1,14 @@
+.header {
+	padding: 13px 0;
+
+	&-wrapper {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	&__btn {
+		&:not(:last-child) {
+			margin-right: 10px;
+		}
+	}
+}
