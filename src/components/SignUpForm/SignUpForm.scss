@@ -4,69 +4,7 @@
 	padding-bottom: 100px;
 }
 
-form {
-	width: 380px;
-	margin-inline: auto;
-	margin-bottom: 50px;
-}
-
 .form-action {
 	text-align: center;
 	margin-top: 50px;
-}
-
-label {
-	color: #7e7e7e;
-	position: relative;
-	display: block;
-	height: 54px;
-}
-
-.label {
-	input {
-		border-radius: 4px;
-		border: 1px solid #d0cfcf;
-		height: 54px;
-		color: $text-color;
-		padding: 0 16px;
-		width: 100%;
-	}
-}
-
-.input-label {
-	padding: 4px;
-	background-color: $bg-color;
-	transition: 0.3s;
-	position: absolute;
-	top: 50%;
-	left: 16px;
-	transform: translateY(-50%);
-	z-index: -1;
-}
-
-.input-help {
-	display: block;
-	font-size: 14px;
-	margin-top: 4px;
-	margin-left: 16px;
-	position: absolute;
-	top: calc(100% + 4px);
-	line-height: 14px;
-}
-
-/* Create a custom radio button */
-.label-radio {
-	input[type='radio'] {
-		&:checked ~ .label-radio__icon {
-			background-color: red;
-		}
-	}
-
-	&__icon {
-		width: 10px;
-		height: 10px;
-		border-radius: 50%;
-		border: 1px solid red;
-		display: inline-block;
-	}
 }

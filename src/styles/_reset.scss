@@ -144,14 +144,6 @@ select {
 	&::placeholder {
 		color: inherit;
 	}
-
-	&:focus:required:invalid {
-		border: 2px solid #cb3d40;
-	}
-
-	&:required:valid {
-		border: 1px solid green;
-	}
 }
 
 /* Hide arrows in number input fields (Webkit) */
