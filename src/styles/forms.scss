@@ -182,6 +182,12 @@ form {
 	}
 }
 
+.form__error {
+	color: $errorColor;
+	text-align: center;
+	margin: 10px;
+}
+
 .form-checked {
 	margin-top: -5px;
 
