@@ -77,7 +77,11 @@ const Users = () => {
 					</div>
 
 					{/* simple Preloader example */}
-					{loading && <p>Loading...</p>}
+					{loading && (
+						<div className='preloader'>
+							<div className='normal'></div>
+						</div>
+					)}
 
 					{page < totalPages && !loading && (
 						<button

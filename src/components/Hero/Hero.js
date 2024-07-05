@@ -1,4 +1,4 @@
-import heroImg from '../../assets/media/hero.jpg';
+import heroImg from '../../assets/media/hero.webp';
 import { ScrolledLink } from '../structure-elements';
 import './Hero.scss';
 

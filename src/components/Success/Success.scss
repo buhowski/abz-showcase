@@ -1,0 +1,40 @@
+@import '../../styles/config';
+
+.form-section {
+	padding-bottom: 100px;
+}
+
+.form-action {
+	text-align: center;
+	margin-top: 50px;
+}
+
+.input__error,
+.input__help {
+	@include tabletSmall {
+		top: calc(100% - 1px);
+	}
+
+	@include mobile {
+		top: calc(100% + 4px);
+	}
+}
+
+.success {
+	max-width: 100%;
+	text-align: center;
+	padding: 50px;
+	background-color: $white;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	white-space: nowrap;
+	z-index: 100;
+	overflow: hidden;
+
+	@include mobile {
+		padding: 30px;
+		white-space: wrap;
+	}
+}

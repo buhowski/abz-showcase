@@ -35,11 +35,14 @@ form {
 	&--radio,
 	&--file {
 		input {
-			display: none;
-			// opacity: 0;
-			// visibility: hidden;
-			// position: absolute;
-			// z-index: -2;
+			// display: none;
+			width: 0;
+			height: 0;
+			overflow: hidden;
+			opacity: 0;
+			visibility: hidden;
+			position: absolute;
+			z-index: -2;
 		}
 	}
 

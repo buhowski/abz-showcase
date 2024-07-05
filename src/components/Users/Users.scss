@@ -55,3 +55,30 @@
 .users-more {
 	margin-top: 50px;
 }
+
+// Preloader
+.preloader {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	margin: 40px;
+	margin-inline: auto;
+}
+
+.normal {
+	border: 5px solid #00bdd3;
+	border-left-color: transparent;
+	border-radius: 50%;
+	width: 100%;
+	height: 100%;
+	animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
