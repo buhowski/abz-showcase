@@ -4,6 +4,7 @@
 	&-wrapper {
 		display: flex;
 		justify-content: space-between;
+		align-items: center;
 	}
 
 	&__btn {
@@ -11,4 +12,8 @@
 			margin-right: 10px;
 		}
 	}
+}
+
+.logo {
+	display: flex;
 }

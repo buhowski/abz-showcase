@@ -6,11 +6,18 @@ const usersData = [
 	{
 		userPhoto: userPhotoImg,
 		userPhotoAlt: '',
-		userName: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. ',
-		userPosition:
-			'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente, vitae.',
+		userName: 'Salvador Stewart Flynn Thomas Salva SalveSalva',
+		userPosition: 'Leading specialist of the department of cent. Lorem, ipsum.',
 		userEmail: 'frontend_develop@gmail.com',
 		userPhone: '+38 (098) 278 44 24',
+	},
+	{
+		userPhoto: userPhotoImg,
+		userPhotoAlt: 'user',
+		userName: 'name',
+		userPosition: 'pos',
+		userEmail: 'email',
+		userPhone: 'phone',
 	},
 	{
 		userPhoto: userPhotoImg,

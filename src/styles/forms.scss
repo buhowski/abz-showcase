@@ -22,11 +22,14 @@ $successColor: green;
 form {
 	width: min($formWidth, 100%);
 	margin-inline: auto;
+
+	label {
+		display: block;
+	}
 }
 
 .input {
 	position: relative;
-	margin-bottom: $marginBottom;
 	color: $inputColor;
 
 	&--radio,
@@ -43,6 +46,7 @@ form {
 	// Input Text defaults
 	&:not(.input--radio, .input--file) {
 		height: $inputHeight;
+		margin-bottom: $marginBottom;
 
 		// Dynamic Label
 		label {
@@ -55,6 +59,13 @@ form {
 			background-color: $bg-color;
 			padding: 4px;
 			margin-left: -4px;
+			transition: 0.3s;
+
+			&.focused {
+				font-size: 12px;
+				transform: translateY(-39px);
+				z-index: 1;
+			}
 		}
 
 		input {
@@ -69,6 +80,9 @@ form {
 	// Input Radio defaults
 	&--radio {
 		color: $inputTextColor;
+		&:not(:last-child) {
+			margin-bottom: 11px;
+		}
 
 		label {
 			cursor: pointer;
@@ -113,6 +127,8 @@ form {
 
 	// Input File defaults
 	&--file {
+		margin-top: 50px;
+
 		label {
 			display: flex;
 			cursor: pointer;
@@ -121,6 +137,7 @@ form {
 			span {
 				display: flex;
 				align-items: center;
+				padding: 0 15px;
 
 				&.input-file__btn {
 					color: $inputTextColor;
@@ -128,8 +145,6 @@ form {
 					border-color: $text-color;
 					border-top-left-radius: $inputBorderRadius;
 					border-bottom-left-radius: $inputBorderRadius;
-
-					padding: 0 15px;
 				}
 
 				&.input-file__text {
@@ -138,7 +153,6 @@ form {
 					border-top-right-radius: $inputBorderRadius;
 					border-bottom-right-radius: $inputBorderRadius;
 					width: 100%;
-					padding: 0 $inputPadding;
 				}
 			}
 		}
@@ -152,13 +166,27 @@ form {
 	// Input Select defaults
 
 	// input Error
-	&__error {
-		font-size: 14px;
+	&__error,
+	&__help {
+		font-size: 12px;
 		padding-left: $inputPadding;
+		color: $errorColor;
 
 		position: absolute;
 		top: calc(100% + 4px);
 		left: 0;
+	}
+
+	&__help {
+		color: currentColor;
+	}
+}
+
+.form-checked {
+	margin-top: -5px;
+
+	> label {
+		margin-bottom: 14px;
 	}
 }
 
