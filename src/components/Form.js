@@ -83,17 +83,15 @@ export const Form = ({ onUserAdded }) => {
 			setSubmitting(true);
 			try {
 				const formDataToSend = new FormData();
-				for (const key in formData) {
+				Object.keys(formData).forEach((key) => {
 					formDataToSend.append(key, formData[key]);
-				}
+				});
 
 				const response = await fetch(
 					'https://frontend-test-assignment-api.abz.agency/api/v1/users',
 					{
 						method: 'POST',
-						headers: {
-							Token: token,
-						},
+						headers: { Token: token },
 						body: formDataToSend,
 					}
 				);
@@ -110,15 +108,7 @@ export const Form = ({ onUserAdded }) => {
 						user.position_id &&
 						user.photo
 					) {
-						const newUser = {
-							id: user.id,
-							name: user.name,
-							email: user.email,
-							phone: user.phone,
-							position_id: user.position_id,
-							photo: user.photo,
-						};
-						onUserAdded(newUser);
+						onUserAdded(user);
 						setFormData({
 							name: '',
 							email: '',
@@ -128,21 +118,18 @@ export const Form = ({ onUserAdded }) => {
 						});
 						setErrors({});
 						setSuccess(true);
-						setTimeout(() => setSuccess(false), 3000);
+						setTimeout(() => {
+							window.location.reload(); // Reload the page on success
+						}, 3000);
 					} else {
-						setErrors({ form: 'Invalid user data received from the server.' });
+						setErrors({});
+						setSuccess(true);
+						setTimeout(() => {
+							window.location.reload(); // Reload the page on success
+						}, 3000);
 					}
 				} else {
-					if (data.fails) {
-						const apiErrors = Object.values(data.fails).flat().join(', ');
-						setErrors({ form: `${apiErrors} (Error code: ${response.status})` });
-					} else if (response.status === 409) {
-						setErrors({
-							form: 'A user with the same email or phone number already exists.',
-						});
-					} else {
-						setErrors({ form: `${data.message} (Error code: ${response.status})` });
-					}
+					handleApiErrors(response, data);
 				}
 			} catch (error) {
 				console.error('An error occurred while submitting the form:', error.message);
@@ -150,6 +137,17 @@ export const Form = ({ onUserAdded }) => {
 			} finally {
 				setSubmitting(false);
 			}
+		}
+	};
+
+	const handleApiErrors = (response, data) => {
+		if (data.fails) {
+			const apiErrors = Object.values(data.fails).flat().join(', ');
+			setErrors({ form: `${apiErrors} (Error code: ${response.status})` });
+		} else if (response.status === 409) {
+			setErrors({ form: 'A user with the same email or phone number already exists.' });
+		} else {
+			setErrors({ form: `${data.message} (Error code: ${response.status})` });
 		}
 	};
 
