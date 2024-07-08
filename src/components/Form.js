@@ -23,6 +23,7 @@ export const Form = ({ onUserAdded }) => {
 	});
 	const [submitting, setSubmitting] = useState(false); // State for submission loading state
 	const [positions, setPositions] = useState([]); // State for storing available positions
+	const [token, setToken] = useState('');
 	const [success, setSuccess] = useState(false);
 
 	useEffect(() => {
@@ -39,6 +40,7 @@ export const Form = ({ onUserAdded }) => {
 				'https://frontend-test-assignment-api.abz.agency/api/v1/positions'
 			);
 			const data = await response.json();
+
 			if (response.ok && data.success) {
 				setPositions(data.positions);
 			} else {
@@ -60,6 +62,7 @@ export const Form = ({ onUserAdded }) => {
 			const data = await response.json();
 
 			if (response.ok && data.success) {
+				setToken(data.token);
 			} else {
 				// Throw error if fetching token fails
 				throw new Error('Failed to fetch token.');
@@ -72,99 +75,79 @@ export const Form = ({ onUserAdded }) => {
 
 	// Function to handle form submission
 	const handleSubmit = async (event) => {
-		// Prevent default form submission behavior
 		event.preventDefault();
-
-		// Validate form data
 		const validationErrors = validateForm(formData);
-		// Set validation errors state
 		setErrors(validationErrors);
 
 		if (Object.keys(validationErrors).length === 0) {
-			// If no validation errors
-			setSubmitting(true); // Set submission loading state to true
+			setSubmitting(true);
 			try {
-				// Fetch a new API token
-				const token = await fetchToken();
 				const formDataToSend = new FormData();
-
 				for (const key in formData) {
-					// Append form data to FormData object
 					formDataToSend.append(key, formData[key]);
 				}
 
-				// Send POST request to submit form data to the API
 				const response = await fetch(
 					'https://frontend-test-assignment-api.abz.agency/api/v1/users',
 					{
 						method: 'POST',
 						headers: {
-							// Include API token in request headers
 							Token: token,
 						},
-						// Send FormData object as request body
 						body: formDataToSend,
 					}
 				);
 
-				// Parse response JSON
 				const data = await response.json();
-
 				if (response.ok && data.success) {
-					// If API request succeeds
-					// Prepare new user data from API response
-					const newUser = {
-						id: data.user.id,
-						name: data.user.name,
-						email: data.user.email,
-						phone: data.user.phone,
-						position_id: data.user.position_id,
-						photo: data.user.photo,
-					};
-
-					// Notify parent component of new user addition
-					onUserAdded(newUser);
-
-					// Reset form fields and errors
-					setFormData({
-						name: '',
-						email: '',
-						phone: '',
-						position_id: '',
-						photo: null,
-					});
-
-					setErrors({});
-					// show If User successfully registered
-					setSuccess(true);
-
-					// Reset success state after 3 seconds
-					setTimeout(() => {
-						setSuccess(false);
-					}, 3000);
+					const { user } = data;
+					if (
+						user &&
+						user.id &&
+						user.name &&
+						user.email &&
+						user.phone &&
+						user.position_id &&
+						user.photo
+					) {
+						const newUser = {
+							id: user.id,
+							name: user.name,
+							email: user.email,
+							phone: user.phone,
+							position_id: user.position_id,
+							photo: user.photo,
+						};
+						onUserAdded(newUser);
+						setFormData({
+							name: '',
+							email: '',
+							phone: '',
+							position_id: '',
+							photo: null,
+						});
+						setErrors({});
+						setSuccess(true);
+						setTimeout(() => setSuccess(false), 3000);
+					} else {
+						setErrors({ form: 'Invalid user data received from the server.' });
+					}
 				} else {
-					// Handle API errors
 					if (data.fails) {
 						const apiErrors = Object.values(data.fails).flat().join(', ');
-
-						// Set form-level error state with API errors
+						setErrors({ form: `${apiErrors} (Error code: ${response.status})` });
+					} else if (response.status === 409) {
 						setErrors({
-							form: `${apiErrors} (Error code: ${response.status})`,
+							form: 'A user with the same email or phone number already exists.',
 						});
 					} else {
-						// Set generic form submission error
-						setErrors({
-							form: `${data.message} (Error code: ${response.status})`,
-						});
+						setErrors({ form: `${data.message} (Error code: ${response.status})` });
 					}
 				}
 			} catch (error) {
-				// Log submission error to console
 				console.error('An error occurred while submitting the form:', error.message);
-				// Set generic form submission error
 				setErrors({ form: 'An error occurred while submitting the form.' });
 			} finally {
-				// Reset submission loading state to false
 				setSubmitting(false);
 			}
 		}
